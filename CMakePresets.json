@@ -1,0 +1,134 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 28,
+    "patch": 4
+  },
+  "configurePresets": [
+    {
+      "name": "ninja-gl-glfw3-debug",
+      "description": "theia build with OpenGL backend using GLFW in Debug configuration",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "generator": "Ninja",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": {
+          "type": "String",
+          "value": "Debug"
+        },
+        "FG_RENDERING_BACKEND": {
+          "type": "String",
+          "value": "OpenGL"
+        },
+        "FG_USE_WINDOW_TOOLKIT": {
+          "type": "String",
+          "value": "glfw3"
+        },
+        "FG_BUILD_DOCS": {
+          "type": "BOOL",
+          "value": "OFF"
+        },
+        "FG_BUILD_EXAMPLES": {
+          "type": "BOOL",
+          "value": "ON"
+        },
+        "FG_WITH_FREEIMAGE": {
+          "type": "BOOL",
+          "value": "ON"
+        },
+        "CMAKE_INSTALL_PREFIX": {
+          "type": "PATH",
+          "value": "${sourceDir}/build/${presetName}/pkg"
+        }
+      }
+    },
+    {
+      "name": "ninja-gl-glfw3-relwithdebinfo",
+      "description": "Build theia using OpenGL backend and GLFW in RelWithDebInfo Configuration",
+      "inherits": "ninja-gl-glfw3-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "ninja-gl-sdl2-debug",
+      "description": "Build theia using OpenGL backend and SDL2 in Debug Configuration",
+      "inherits": "ninja-gl-glfw3-debug",
+      "cacheVariables": {
+        "FG_USE_WINDOW_TOOLKIT": "sdl2"
+      }
+    },
+    {
+      "name": "ninja-gl-sdl2-relwithdebinfo",
+      "description": "Build theia using OpenGL backend and SDL2 in RelWithDebInfo Configuration",
+      "inherits": "ninja-gl-sdl2-debug",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "ninja-docs",
+      "description": "Build theia Documentation, needs doxygen installed",
+      "inherits": "ninja-gl-glfw3-debug",
+      "cacheVariables": {
+          "FG_BUILD_EXAMPLES": "OFF",
+          "FG_BUILD_DOCS": "ON"
+      }
+    },
+    {
+      "name": "msvc-gl-glfw3",
+      "description": "theia build with OpenGL backend using GLFW",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": {
+          "type": "PATH",
+          "value": "%VCPKG_ROOT%/scripts/buildsystems/vcpkg.cmake"
+        },
+        "FG_RENDERING_BACKEND": {
+          "type": "String",
+          "value": "OpenGL"
+        },
+        "FG_USE_WINDOW_TOOLKIT": {
+          "type": "String",
+          "value": "glfw3"
+        },
+        "FG_BUILD_DOCS": {
+          "type": "BOOL",
+          "value": "OFF"
+        },
+        "FG_BUILD_EXAMPLES": {
+          "type": "BOOL",
+          "value": "ON"
+        },
+        "FG_WITH_FREEIMAGE": {
+          "type": "BOOL",
+          "value": "ON"
+        },
+        "CMAKE_INSTALL_PREFIX": {
+          "type": "PATH",
+          "value": "${sourceDir}/build/${presetName}/pkg"
+        }
+      }
+    },
+    {
+      "name": "msvc-gl-sdl2",
+      "description": "theia build with OpenGL backend using SDL",
+      "inherits": "msvc-gl-glfw3",
+      "cacheVariables": {
+        "FG_USE_WINDOW_TOOLKIT": "sdl2"
+      }
+    }
+  ]
+}
