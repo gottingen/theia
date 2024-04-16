@@ -63,7 +63,7 @@ target_link_libraries(theia
     ${CMAKE_DL_LIBS}
     )
 
-target_link_libraries(theia PRIVATE glad_obj_lib)
+target_link_libraries(theia PRIVATE glad)
 
 if(UNIX)
     target_link_libraries(theia
@@ -104,7 +104,7 @@ endif()
 install(TARGETS theia
     EXPORT theiaTargets
     COMPONENT theia
-    PUBLIC_HEADER DESTINATION fg
+    PUBLIC_HEADER DESTINATION theia/fg
     RUNTIME DESTINATION ${FG_INSTALL_BIN_DIR}
     LIBRARY DESTINATION ${FG_INSTALL_LIB_DIR}
     ARCHIVE DESTINATION ${FG_INSTALL_LIB_DIR}

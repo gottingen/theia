@@ -92,7 +92,6 @@ function(fg_set_target_compilation_props target)
     target_include_directories(${target}
         SYSTEM PRIVATE
         $<TARGET_PROPERTY:Boost::boost,INTERFACE_INCLUDE_DIRECTORIES>
-        $<TARGET_PROPERTY:glad_obj_lib,INTERFACE_INCLUDE_DIRECTORIES>
         )
     target_include_directories(${target}
         PUBLIC
