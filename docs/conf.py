@@ -49,8 +49,8 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'theia'
-copyright = '2019 ArrayFire'
-author = 'technical@arrayfire.com'
+copyright = '2019 flare'
+author = 'lijippy@163.com'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -99,8 +99,8 @@ html_theme_options = {
         'sticky_navigation': True,
         'navigation_depth': 4,
         }
-html_favicon = '../assets/arrayfire.ico'
-html_logo = '../assets/arrayfire_icon.png'
+html_favicon = '../assets/flare.ico'
+html_logo = '../assets/flare.png'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -151,7 +151,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'theia.tex', 'theia Documentation',
-     'technical@arrayfire.com', 'manual'),
+     'lijippy@163.com', 'manual'),
 ]
 
 

@@ -3,7 +3,7 @@ Overview {#mainpage}
 
 ## About theia
 A prototype of the OpenGL interop library that can be used with
-[ArrayFire](https://github.com/arrayfire/arrayfire). The
+[flare](https://github.com/gottingen/flare). The
 goal of theia is to provide high performance OpenGL visualizations for C/C++
 applications that use CUDA/OpenCL.
 
@@ -38,4 +38,4 @@ Alternatives to GLFW which are currently under consideration are given below:
     - [NVIDIA](https://developer.nvidia.com/opencl)
 
 #### Email
-* Engineering: technical@arrayfire.com
+* Engineering: lijippy@163.com

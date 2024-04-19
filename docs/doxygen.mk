@@ -51,7 +51,7 @@ PROJECT_BRIEF          = ""
 # and the maximum width should not exceed 200 pixels. Doxygen will copy the logo
 # to the output directory.
 
-#PROJECT_LOGO           = ${ASSETS_DIR}/arrayfire_logo.png
+#PROJECT_LOGO           = ${ASSETS_DIR}/flare_logo.png
 PROJECT_LOGO           =
 
 # The OUTPUT_DIRECTORY tag is used to specify the (relative or absolute) path
