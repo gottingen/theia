@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16.3)
 
-project(theia VERSION 1.1.0 LANGUAGES C CXX)
+project(theia VERSION 1.1.8 LANGUAGES C CXX)
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
@@ -17,7 +17,6 @@ set_policies(TYPE NEW POLICIES CMP0072 CMP0077)
 option(BUILD_SHARED_LIBS "Build shared/static library" ON)
 
 find_package(Boost      REQUIRED)
-find_package(Doxygen    QUIET)
 find_package(FontConfig QUIET)
 find_package(FreeImage  QUIET)
 find_package(Freetype   REQUIRED)
@@ -28,10 +27,8 @@ if(UNIX)
         "FontConfig is required on non-windows OS")
 endif()
 
-option(FG_BUILD_DOCS
-    "Build Documentation" $<AND:${DOXYGEN_FOUND},${Sphinx_FOUND}>)
 option(FG_BUILD_EXAMPLES
-    "Build Examples" ON)
+    "Build Examples" OFF)
 option(FG_WITH_FREEIMAGE
     "Use FreeImage to add support for saving framebuffer to disk"
     ${FreeImage_FOUND})
@@ -136,6 +133,6 @@ export(EXPORT theiaTargets
     FILE theiaTargets.cmake
 )
 
-conditional_directory(FG_BUILD_DOCS docs)
 conditional_directory(FG_BUILD_EXAMPLES examples)
 
+include(CPackConfig)
