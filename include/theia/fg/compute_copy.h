@@ -44,10 +44,6 @@ extern "C" {
 #include <cuda_runtime.h>
 #include <cuda_gl_interop.h>
 
-#elif defined(USE_THEIA_OPENCL_COPY_HELPERS)
-
-// No special headers for opencl backend
-
 #else
 
     #error "Invalid Compute model, exiting."
@@ -59,7 +55,6 @@ extern "C" {
 /// from an OpenGL resource.
 ///
 /// - cudaGraphicsResource in CUDA
-/// - cl_mem in OpenCL
 /// - unsigned from standard cpu
 #if defined(USE_THEIA_CPU_COPY_HELPERS)
 /// OpenGL interop with CPU uses regular OpenGL buffer
@@ -67,9 +62,6 @@ typedef unsigned GfxResourceHandle;
 #elif defined(USE_THEIA_CUDA_COPY_HELPERS)
 /// OpenGL interop with CUDA uses an opaque CUDA object
 typedef cudaGraphicsResource* GfxResourceHandle;
-#elif defined(USE_THEIA_OPENCL_COPY_HELPERS)
-/// OpenGL interop with OpenCL uses cl_mem object
-typedef cl_mem GfxResourceHandle;
 #endif
 
 
@@ -77,7 +69,6 @@ typedef cl_mem GfxResourceHandle;
 
   For example:
     CUDA device pointer, like float*, int* from cudaMalloc.
-    A cl_mem* from OpenCL's clCreateBuffer
   */
 typedef void* ComputeResourceHandle;
 
@@ -184,65 +175,6 @@ void copyToGLBuffer(GfxHandle* pGLDestination, ComputeResourceHandle  pSource, c
     THEIA_CUDA_CHECK(cudaGraphicsUnmapResources(1, &cudaResource, 0));
 }
 #endif
-
-///////////////////////////////////////////////////////////////////////////////
-
-#if defined(USE_THEIA_OPENCL_COPY_HELPERS)
-
-#define THEIA_OCL_CHECK(cl_status, message) \
-    if(cl_status != CL_SUCCESS) \
-    { \
-        printf("Error: %s \nError Code: %d\n", message, cl_status);\
-        printf("Location: %s:%i\n", __FILE__, __LINE__);\
-        exit(EXIT_FAILURE);                             \
-    }
-
-static
-void createGLBuffer(GfxHandle** pOut, const unsigned pResourceId, const BufferType pTarget)
-{
-    GfxHandle* temp   = (GfxHandle*)malloc(sizeof(GfxHandle));
-    temp->mTarget     = pTarget;
-    cl_int returnCode = CL_SUCCESS;
-
-    temp->mId = clCreateFromGLBuffer(getContext(), CL_MEM_WRITE_ONLY, pResourceId, &returnCode);
-    THEIA_OCL_CHECK(returnCode, "Failed in clCreateFromGLBuffer");
-
-    *pOut = temp;
-}
-
-static
-void releaseGLBuffer(GfxHandle* pHandle)
-{
-    THEIA_OCL_CHECK(clReleaseMemObject(pHandle->mId), "Failed in clReleaseMemObject");
-    free(pHandle);
-}
-
-static
-void copyToGLBuffer(GfxHandle* pGLDestination, ComputeResourceHandle  pSource, const size_t pSize)
-{
-    // The user is expected to implement a function
-    // `cl_command_queue getCommandQueue()`
-    cl_command_queue queue = getCommandQueue();
-    cl_event waitEvent;
-    cl_mem src = (cl_mem)pSource;
-    cl_mem dst = pGLDestination->mId;
-
-    fg_finish();
-    THEIA_OCL_CHECK(clEnqueueAcquireGLObjects(queue, 1, &dst, 0, NULL, &waitEvent),
-                    "Failed in clEnqueueAcquireGLObjects");
-    THEIA_OCL_CHECK(clWaitForEvents(1, &waitEvent),
-                    "Failed in clWaitForEvents after clEnqueueAcquireGLObjects");
-    THEIA_OCL_CHECK(clEnqueueCopyBuffer(queue, src, dst, 0, 0, pSize, 0, NULL, &waitEvent),
-                    "Failed in clEnqueueCopyBuffer");
-    THEIA_OCL_CHECK(clEnqueueReleaseGLObjects(queue, 1, &dst, 0, NULL, &waitEvent),
-                    "Failed in clEnqueueReleaseGLObjects");
-    THEIA_OCL_CHECK(clWaitForEvents(1, &waitEvent),
-                    "Failed in clWaitForEvents after clEnqueueReleaseGLObjects");
-}
-
-#endif
-
-///////////////////////////////////////////////////////////////////////////////
 
 #ifdef __cplusplus
 }

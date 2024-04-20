@@ -5,7 +5,7 @@ Overview {#mainpage}
 A prototype of the OpenGL interop library that can be used with
 [flare](https://github.com/gottingen/flare). The
 goal of theia is to provide high performance OpenGL visualizations for C/C++
-applications that use CUDA/OpenCL.
+applications that use CUDA.
 
 ## Upstream dependencies
 * [GLFW](http://www.glfw.org/)
@@ -32,10 +32,6 @@ Alternatives to GLFW which are currently under consideration are given below:
 ## Example Dependencies
 * CPU examples doesn't need any additional dependencies.
 * CUDA Interop examples requires [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit)
-* OpenCL Interop examples requires OpenCL libraries.
-    - [AMD](http://developer.amd.com/tools-and-sdks/opencl-zone/)
-    - [INTEL](https://software.intel.com/en-us/intel-opencl)
-    - [NVIDIA](https://developer.nvidia.com/opencl)
 
 #### Email
 * Engineering: lijippy@163.com

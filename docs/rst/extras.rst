@@ -9,7 +9,6 @@ to use respective compute backend helpers.
 
 - `USE_THEIA_CPU_COPY_HELPERS`
 - `USE_THEIA_CUDA_COPY_HELPERS`
-- `USE_THEIA_OPENCL_COPY_HELPERS`
 
 .. doxygenstruct:: GfxHandle
     :project: theia

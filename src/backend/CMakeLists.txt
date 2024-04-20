@@ -90,18 +90,6 @@ if(UNIX)
         )
 endif(UNIX)
 
-source_group(include
-    REGULAR_EXPRESSION ${theia_SOURCE_DIR}/include/*)
-source_group("api\\cpp"
-    REGULAR_EXPRESSION ${theia_SOURCE_DIR}/src/api/cpp/*)
-source_group("api\\c"
-    REGULAR_EXPRESSION ${theia_SOURCE_DIR}/src/api/c/*)
-source_group("backend"
-    REGULAR_EXPRESSION ${theia_SOURCE_DIR}/src/backend/common/*)
-source_group("backend\\shaders"
-    REGULAR_EXPRESSION ${theia_SOURCE_DIR}/src/backend/glsl_shaders/*)
-source_group("backend"
-    REGULAR_EXPRESSION ${CMAKE_CURRENT_LIST_DIR}/*)
 if(${FG_RENDERING_BACKEND} STREQUAL "OpenGL")
     if(${FG_USE_WINDOW_TOOLKIT} STREQUAL "glfw3")
         source_group("backend\\glfw"

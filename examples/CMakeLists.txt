@@ -12,7 +12,6 @@ if(theia_BINARY_DIR AND EXISTS "${theia_BINARY_DIR}")
   set(THEIA_BUILD_TREE ON)
 endif()
 
-find_package(OpenCL 1.2 QUIET)
 find_package(CUDA   QUIET)
 find_package(theia  REQUIRED)
 
@@ -20,16 +19,11 @@ include(CMakeParseArguments)
 include(CMakeDependentOption)
 include(InternalUtils)
 
-cmake_dependent_option(FG_BUILD_OPENCL_EXAMPLES
-  "Build opencl examples" ON
-  "OpenCL_FOUND;FG_BUILD_EXAMPLES" OFF)
-
 cmake_dependent_option(FG_BUILD_CUDA_EXAMPLES
   "Build cuda examples" ON
   "CUDA_FOUND;FG_BUILD_EXAMPLES" OFF)
 
 fg_deprecate(BUILD_EXAMPLES_CUDA FG_BUILD_CUDA_EXAMPLES)
-fg_deprecate(BUILD_EXAMPLES_OPENCL FG_BUILD_OPENCL_EXAMPLES)
 
 function(add_example target_name source backend)
     set(options CXX11)
@@ -92,13 +86,4 @@ endfunction()
 
 add_subdirectory(cpu)
 conditional_directory(FG_BUILD_CUDA_EXAMPLES cuda)
-conditional_directory(FG_BUILD_OPENCL_EXAMPLES opencl)
 
-mark_as_advanced(
-    CUDA_HOST_COMPILER
-    CUDA_USE_STATIC_CUDA_RUNTIME
-    CUDA_rt_LIBRARY
-    CMAKE_CUDA_HOST_COMPILER
-    FG_BUILD_CUDA_EXAMPLES
-    FG_BUILD_OPENCL_EXAMPLES
-    )
