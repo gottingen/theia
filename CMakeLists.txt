@@ -6,7 +6,14 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/CMakeModules")
 list(APPEND CMAKE_PREFIX_PATH "${theia_BINARY_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake")
+list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/arch")
+list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/copts")
+list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/modules")
+list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/package")
+list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/recipes")
 
+include(theia_package_config)
 include(TheiaBuildType)
 include(TheiaInstallDirs)
 include(TheiaInternalUtils)
@@ -135,4 +142,4 @@ export(EXPORT theiaTargets
 
 conditional_directory(FG_BUILD_EXAMPLES examples)
 
-include(CPackConfig)
+include(carbin_cpack)
