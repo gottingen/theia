@@ -13,6 +13,7 @@ list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/modules")
 list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/package")
 list(APPEND CMAKE_MODULE_PATH "${theia_SOURCE_DIR}/carbin_cmake/recipes")
 
+list(APPEND CMAKE_PREFIX_PATH ${PROJECT_SOURCE_DIR}/carbin)
 include(theia_package_config)
 include(TheiaBuildType)
 include(TheiaInstallDirs)
